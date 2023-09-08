@@ -1,0 +1,9 @@
+# Python
+venv/
+
+# MacOS
+.DS_Store
+
+.idea
+
+main.py
