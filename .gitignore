@@ -1,9 +1,14 @@
 # Python
 venv/
+main.py
+
+# Go
+go.mod
+go.sum
+main.go
 
 # MacOS
 .DS_Store
 
+# Jetbranins
 .idea
-
-main.py
