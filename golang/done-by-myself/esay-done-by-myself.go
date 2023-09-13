@@ -1,4 +1,4 @@
-package golang
+package done_by_myself
 
 // IsValid stack
 func IsValid(s string) bool {
@@ -35,4 +35,46 @@ func IsValid(s string) bool {
 		}
 	}
 	return len(stack) == 0
+}
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	if list1 == nil && list2 == nil {
+		return nil
+	}
+	res := &ListNode{}
+	tem := res
+	for list1 != nil && list2 != nil {
+		if list1.Val <= list2.Val {
+			tem.Val = list1.Val
+			list1 = list1.Next
+		} else {
+			tem.Val = list2.Val
+			list2 = list2.Next
+		}
+		tem.Next = &ListNode{}
+		tem = tem.Next
+	}
+
+	for list1 != nil {
+		tem.Val = list1.Val
+		list1 = list1.Next
+		if list1 != nil {
+			tem.Next = &ListNode{}
+			tem = tem.Next
+		}
+	}
+	for list2 != nil {
+		tem.Val = list2.Val
+		list2 = list2.Next
+		if list2 != nil {
+			tem.Next = &ListNode{}
+			tem = tem.Next
+		}
+	}
+	return res
 }
