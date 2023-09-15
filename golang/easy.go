@@ -83,3 +83,11 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 
 	return result.Next
 }
+
+func climbStairs(n int) int {
+	secondLast, last := 0, 1
+	for ; n > 0; n-- {
+		secondLast, last = last, secondLast+last
+	}
+	return last
+}

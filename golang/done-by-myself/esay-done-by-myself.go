@@ -1,7 +1,7 @@
 package done_by_myself
 
-// IsValid stack
-func IsValid(s string) bool {
+// first try
+func isValid(s string) bool {
 	// this could be refactored to "if len(s) == 0 || len(s)%2 == 1"
 	if len(s) == 0 {
 		return true
@@ -42,6 +42,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// first try
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	if list1 == nil && list2 == nil {
 		return nil
@@ -75,6 +76,23 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 			tem.Next = &ListNode{}
 			tem = tem.Next
 		}
+	}
+	return res
+}
+
+// first try
+func climbStairs(n int) int {
+	var last, secondLast, res int
+	for i := 1; i <= n; i++ {
+		if i == 1 {
+			res = 1
+		} else if i == 2 {
+			res = 2
+		} else {
+			res = last + secondLast
+		}
+		secondLast = last
+		last = res
 	}
 	return res
 }
