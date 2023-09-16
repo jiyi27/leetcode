@@ -1,5 +1,7 @@
 package done_by_myself
 
+import "strings"
+
 // first try
 func isValid(s string) bool {
 	// this could be refactored to "if len(s) == 0 || len(s)%2 == 1"
@@ -82,17 +84,48 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 
 // first try
 func climbStairs(n int) int {
-	var last, secondLast, res int
-	for i := 1; i <= n; i++ {
-		if i == 1 {
-			res = 1
-		} else if i == 2 {
-			res = 2
-		} else {
-			res = last + secondLast
-		}
-		secondLast = last
-		last = res
+	if n <= 2 {
+		return n
+	}
+	secondLast := 1
+	last := 2
+	res := 2
+	for i := 3; i <= n; i++ {
+		res = last + secondLast
+		last, secondLast = res, last
 	}
 	return res
+}
+
+func binarySearch(nums []int, target int) int {
+	l := 0
+	r := len(nums) - 1
+	for l <= r {
+		m := (r - l) / 2
+		if target > nums[m] {
+			r = m - 1
+		} else if target < nums[m] {
+			l = m + 1
+		} else {
+			return m
+		}
+	}
+	return l
+}
+
+// failed at first, second try
+func longestCommonPrefix(s []string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	if len(s) == 1 {
+		return s[0]
+	}
+	pref := s[0]
+	for i := 1; i < len(s); i++ {
+		for !strings.HasPrefix(s[i], pref) {
+			pref = pref[:len(pref)-1]
+		}
+	}
+	return pref
 }

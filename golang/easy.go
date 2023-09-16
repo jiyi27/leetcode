@@ -91,3 +91,25 @@ func climbStairs(n int) int {
 	}
 	return last
 }
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+// binary tree
+func inorderTraversal(root *TreeNode) []int {
+	ans := make([]int, 0)
+	var foo func(node *TreeNode)
+	foo = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		foo(node.Left)
+		ans = append(ans, node.Val)
+		foo(node.Right)
+	}
+	foo(root)
+	return ans
+}
