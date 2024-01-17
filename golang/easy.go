@@ -99,6 +99,7 @@ type TreeNode struct {
 }
 
 // binary tree
+// https://youtu.be/b_NjndniOqY?si=bgaCMCaqdaqDrmxI
 func inorderTraversal(root *TreeNode) []int {
 	ans := make([]int, 0)
 	var foo func(node *TreeNode)

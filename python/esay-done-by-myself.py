@@ -37,3 +37,12 @@ def longestCommonPrefix(strs):
                 return res
         res += strs[0][index]
         index += 1
+
+
+def longestCommonPrefix2(strs):
+    res = strs[0]
+    for i in range(1, len(strs)):
+        while strs[i].startswith(res) is False:
+            res = res[:-1]
+    return res
+ 
