@@ -15,6 +15,8 @@
         ...
 ```
 
+> `if (nums[middle] > target)`, `right` 更新为 `middle - 1`, 因为当前 `nums[middle]` 不等于target, 去左区间继续寻找, 而寻找区间是左闭右闭区间
+
 2. 左闭右开的区间里 `[left, right)`
 
 ```python
@@ -24,6 +26,6 @@
         ...
 ```
 
-> `if (nums[middle] > target)` `right` 更新为 `middle`, 而不是 `middle-1`, 因为当前 `nums[middle]` 不等于target, 去左区间继续寻找, 而寻找区间是左闭右开区间, 所以right更新为middle
+> `if (nums[middle] > target)`, `right` 更新为 `middle`, 而不是 `middle-1`, 因为当前 `nums[middle]` 不等于target, 去左区间继续寻找, 而寻找区间是左闭右开区间, 所以 `right` 更新为 `middle`
 
 参考: [代码随想录](https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E6%80%9D%E8%B7%AF)
