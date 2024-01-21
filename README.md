@@ -29,3 +29,14 @@
 > `if (nums[middle] > target)`, `right` 更新为 `middle`, 而不是 `middle-1`, 因为当前 `nums[middle]` 不等于target, 去左区间继续寻找, 而寻找区间是左闭右开区间, 所以 `right` 更新为 `middle`
 
 参考: [代码随想录](https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E6%80%9D%E8%B7%AF)
+
+## day 3
+
+双指针 快慢指针法
+
+- 快指针：指向最新的元素, 每次都会移动
+- 慢指针：指向 “新数组” 下标的最后位置, 根据条件移动
+
+**题目:** 27. Remove Element, 283. Move Zeroes
+
+**总结:** 数组的元素在内存地址中是连续的, 不能单独删除数组中的某个元素, 只能覆盖, 如果非要删除, 则需要遍历后面的每个元素移动到前面, 

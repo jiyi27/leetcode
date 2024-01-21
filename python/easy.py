@@ -1,3 +1,23 @@
+def moveZeroes(nums):
+    slow_index, fast_index = 0, 0
+    for fast_index in range(len(nums)):
+        if nums[fast_index] != 0:
+            nums[slow_index] = nums[fast_index]
+            slow_index += 1
+    while slow_index < len(nums):
+        nums[slow_index] = 0
+        slow_index += 1
+
+
+def removeElement(nums, val):
+    slow_index = 0
+    for fastIndex in range(len(nums)):
+        if nums[fastIndex] != val:
+            nums[slow_index] = nums[fastIndex]
+            slow_index += 1
+    return slow_index
+
+
 def twoSum(nums, target):
     num_to_index = {}
     for i in range(len(nums)):
