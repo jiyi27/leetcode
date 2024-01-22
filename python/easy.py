@@ -1,3 +1,20 @@
+def backspaceCompare(s, t):
+    def processString(target):
+        target_list = list(target)  # 将字符串转换为列表
+        slow_index = 0
+        for fast_index in range(len(target_list)):
+            if target_list[fast_index] != '#':
+                target_list[slow_index] = target_list[fast_index]
+                slow_index += 1
+            elif slow_index > 0:
+                slow_index -= 1
+        return ''.join(target_list[:slow_index])  # 将列表转换回字符串
+
+    s = processString(s)
+    t = processString(t)
+    return s == t
+
+
 def moveZeroes(nums):
     slow_index, fast_index = 0, 0
     for fast_index in range(len(nums)):
