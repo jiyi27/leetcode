@@ -1,3 +1,36 @@
+def generateMatrix(self, n):
+    """
+    整体思路: 行负责每次都处理当前拐角, 列不负责
+    假如4*4, layer = 0, 则此时列只负责 中间两个数据
+    行处理完当前行所有数据 即四个
+    """
+    matrix = [[0] * n for _ in range(n)]  # syntax
+    cur = 1
+    layer = 0
+    for round_ in range(0, n, 2):
+        for i in range(layer, n - layer):
+            matrix[layer][i], cur = cur, cur + 1
+
+        if n - round_ <= 1:
+            break
+
+        # 只要第一次循环正确 之后也不会出错
+        # 第一次 layer 为 0, n - layer - 1 = n -1 所以 matrix[i][n - layer - 1] 不会超出范围
+        # 之后 layer = 2, 3 也不会超出范围 假如你前面的代码正确
+        for i in range(layer + 1, n - layer - 1):
+            matrix[i][n - layer - 1], cur = cur, cur + 1
+
+        for i in range(n - layer - 1, layer - 1, -1):
+            matrix[n - layer - 1][i], cur = cur, cur + 1
+
+        for i in range(n - layer - 2, layer, -1):
+            matrix[i][layer], cur = cur, cur + 1
+
+        layer += 1
+
+    return matrix
+
+
 def backspaceCompare(s, t):
     def processString(target):
         target_list = list(target)  # 将字符串转换为列表
