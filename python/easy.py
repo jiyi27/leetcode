@@ -1,3 +1,18 @@
+def removeElements(self, head, val):
+    class ListNode(object):
+        def __init__(self, val_=0, next_=None):
+            self.val = val_
+            self.next = next_
+
+    cur = dummy_head = ListNode(next_=head)
+    while cur.next:
+        if cur.next.val == val:
+            cur.next = cur.next.next
+        else:
+            cur = cur.next
+    return dummy_head.next
+
+
 def generateMatrix(self, n):
     """
     整体思路: 行负责每次都处理当前拐角, 列不负责
@@ -98,6 +113,11 @@ def isValid(s):
 
 
 def mergeTwoLists(list1, list2):
+    class ListNode:
+        def __init__(self, val=0, next_=None):
+            self.val = val
+            self.next = next_
+
     cur = res = ListNode()
     while list1 and list2:
         if list1.val > list2.val:
@@ -111,12 +131,6 @@ def mergeTwoLists(list1, list2):
         cur.next = list1 if list1 else list2
 
     return res.next
-
-
-class ListNode:
-    def __init__(self, val=0, next_=None):
-        self.val = val
-        self.next = next_
 
 
 def climbStairs(n):
