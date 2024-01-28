@@ -1,3 +1,80 @@
+class MyLinkedList(object):
+    class ListNode:
+        def __init__(self, val, next_=None):
+            self.val = val
+            self.next = next_
+
+    def __init__(self):
+        self.size = 0
+        self.dummy_head = self.ListNode(None)
+
+    def get(self, index):
+        """
+        :type index: int
+        :rtype: int
+        """
+        if index < 0 or index >= self.size:
+            return -1
+
+        temp = self.dummy_head.next
+        val = temp.val
+        while index > 0:
+            temp, index = temp.next, index - 1
+            val = temp.val
+        return val
+
+    def addAtHead(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        self.dummy_head.next = self.ListNode(val, self.dummy_head.next)
+        self.size += 1
+
+    def addAtTail(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        temp = self.dummy_head
+        for _ in range(self.size):
+            temp = temp.next
+        temp.next = self.ListNode(val)
+        self.size += 1
+
+    def addAtIndex(self, index, val):
+        """
+        :type index: int
+        :type val: int
+        :rtype: None
+        """
+        if index > self.size or index < 0:
+            return
+        if index == self.size:
+            self.addAtTail(val)
+            return
+
+        temp = self.dummy_head
+        while index > 0:
+            temp, index = temp.next, index - 1
+        temp.next = self.ListNode(val, temp.next)
+        self.size += 1
+
+    def deleteAtIndex(self, index):
+        """
+        :type index: int
+        :rtype: None
+        """
+        if index >= self.size or index < 0:
+            return
+
+        temp = self.dummy_head
+        while index > 0:
+            temp, index = temp.next, index - 1
+        temp.next = temp.next.next
+        self.size -= 1
+
+
 def removeElements(self, head, val):
     class ListNode(object):
         def __init__(self, val_=0, next_=None):

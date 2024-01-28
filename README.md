@@ -59,3 +59,16 @@ while lo <= hi:  # 要使用 <=, 因为left == right是有意义的
 **总结:**
 
 - 滑动窗口问题也可以看作为双指针
+
+## 链表
+
+### day 1
+
+**题目:** 203. Remove Linked List Elements
+
+若有需要删除节点的需求, 可以增个 dummy_head, 以便统一化移除头部元素和其他元素:
+
+```python
+cur = dummy_head = ListNode(next_=head)
+```
+
