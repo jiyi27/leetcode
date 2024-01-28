@@ -66,9 +66,28 @@ while lo <= hi:  # 要使用 <=, 因为left == right是有意义的
 
 **题目:** 203. Remove Linked List Elements
 
-若有需要删除节点的需求, 可以增个 dummy_head, 以便统一化移除头部元素和其他元素:
+**总结:** 若有需要删除节点的需求, 可以增个 dummy_head, 以便统一化移除头部元素和其他元素:
 
 ```python
 cur = dummy_head = ListNode(next_=head)
 ```
+### day 2
 
+**题目:** 707. Design Linked List
+
+**总结:** 链表增删改查, 基本操作, 主要是边界条件的处理, 这个可以借助循环不变量的概念, 如删除第 `index` 个元素:
+
+```python
+def deleteAtIndex(self, index):
+    if index >= self.size or index < 0:
+        return
+
+    temp = self.dummy_head
+    while index > 0:
+        temp, index = temp.next, index - 1
+    temp.next = temp.next.next
+    self.size -= 1
+```
+
+`while index > 0` 可以先写成 `while index >= 0`, 等里面的逻辑写完在考虑边界问题, 只需要考虑边界条件,
+比如 `index == 0` 时, 你想不想让循环执行, 然后再考虑 `index=1` 时 (普通情况), 若程序符合预期, 则之后的 `index=2,3,4...` 也肯定符合预期.
