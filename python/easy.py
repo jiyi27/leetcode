@@ -1,3 +1,14 @@
+def reverseList(head):
+    pre = None
+    cur = head
+    # 思路: B的next指向A, 然后A=B, B=下一个节点, 以此类推
+    while cur:
+        temp = cur.next
+        cur.next = pre
+        pre, cur = cur, temp
+    return pre
+
+
 class MyLinkedList(object):
     class ListNode:
         def __init__(self, val, next_=None):
