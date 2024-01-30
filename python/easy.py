@@ -1,7 +1,25 @@
+def swapPairs(head):
+    dummy_head = ListNode(next=head)
+    pre, cur = dummy_head, head
+    while cur and cur.next:
+        # save
+        temp1 = cur.next
+        temp2 = cur.next.next
+        # swap
+        cur.next = temp2
+        temp1.next = cur
+        pre.next = temp1
+        # move
+        pre = cur
+        cur = temp2
+
+    return dummy_head.next
+
+
 def reverseList(head):
     pre = None
     cur = head
-    # 思路: B的next指向A, 然后A=B, B=下一个节点, 以此类推
+    # 思路: 仅仅改变指针方向便可以
     while cur:
         temp = cur.next
         cur.next = pre
@@ -313,3 +331,9 @@ def searchRange(self, nums, target):
     last = searchIndex(False)
 
     return [first, last]
+
+
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
