@@ -1,3 +1,74 @@
+
+
+# class Solution(object):
+#     def threeSum(self, nums):
+#         nums.sort()
+#         record = {}
+#         res = set()
+#         for i in range(len(nums)):
+#             for j in range(i + 1, len(nums)):
+#                 v = nums[i] + nums[j]
+#                 if v in record:
+#                     record[v].append({i, j})
+#                 else:
+#                     record[v] = [{i, j}]
+#         for i in range(len(nums)):
+#             if -nums[i] in record:
+#                 for index_set in record[-nums[i]]:
+#                     if i in index_set:
+#                         continue
+#                     else:
+#                         index_list = list(index_set)
+#                         res.add((nums[index_list[0]], nums[index_list[1]], nums[i]))
+#         res = list(res)
+#         return res
+def threeSum(nums):
+    target = 0
+    nums.sort()
+    result = []
+    for i in range(len(nums)):
+        # 如果第一个元素已经大于0，不需要进一步检查
+        if nums[i] > 0:
+            return result
+
+        # 跳过相同的元素以避免重复
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+
+        j = i + 1
+        k = len(nums) - 1
+        while j < k:
+            sum_ = nums[i] + nums[j] + nums[k]
+            if sum_ == target:
+                result.append((nums[i], nums[j], nums[k]))
+                while j < k and nums[j] == nums[j + 1]:
+                    j += 1
+                while j < k and nums[k] == nums[k - 1]:
+                    k -= 1
+                j += 1
+                k -= 1
+            elif sum_ < target:
+                j += 1
+            else:
+                k -= 1
+    return result
+
+
+def canConstruct(ransomNote, magazine):
+    record = {}
+    for c in magazine:
+        if c in record:
+            record[c] += 1
+        else:
+            record[c] = 1
+    for c in ransomNote:
+        if c in record and record[c] > 0:
+            record[c] -= 1
+        else:
+            return False
+    return True
+
+
 def fourSumCount(nums1, nums2, nums3, nums4):
     record = {}
     for i in nums1:
