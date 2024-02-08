@@ -1,3 +1,36 @@
+def fourSum(nums, target):
+    nums.sort()
+    output = []
+    for i in range(len(nums)):
+        if nums[i] > target > 0 and nums[i] > 0:
+            break
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+
+        for j in range(i + 1, len(nums)):
+            if nums[i] + nums[j] > target >= 0:
+                break
+            # i 是外层循环的索引，代表四元组中的第一个数字的位置。j 作为第二个数字的索引，至少需要是 i + 1（即第一个数字之后的位置）
+            if j > i + 1 and nums[j] == nums[j - 1]:  # 注意这里不是 j > 0
+                continue
+
+            left = j + 1
+            right = len(nums) - 1
+            while left < right:
+                s = nums[i] + nums[j] + nums[left] + nums[right]
+                if s == target:
+                    output.append([nums[i], nums[j], nums[left], nums[right]])
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
+                elif s < target:
+                    left += 1
+                else:
+                    right -= 1
+    return output
 
 
 # class Solution(object):
