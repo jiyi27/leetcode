@@ -1,3 +1,38 @@
+def strStr(haystack, needle):
+    if needle == "": return 0
+
+    lps = [0] * len(needle)
+    prevLPS, i = 0, 1
+    while i < len(needle):
+        if needle[i] == needle[prevLPS]:
+            lps[i] = prevLPS + 1
+            prevLPS, i = prevLPS + 1, i + 1
+        elif prevLPS == 0:
+            lps[i], i = 0, i + 1
+        else:
+            prevLPS = lps[prevLPS - 1]
+
+    i = j = 0
+    while i < len(haystack):
+        if haystack[i] == needle[j]:
+            i, j = i + 1, j + 1
+        else:
+            if j == 0:
+                i += 1
+            else:
+                j = lps[j-1]
+        if j == len(needle):
+            return i - len(needle)
+
+    return -1
+
+
+def reverseWords(s_):
+    list_str = s_.split()
+    list_str = list_str[::-1]
+    return ' '.join(list_str)
+
+
 def reverseStr(s: str, k: int) -> str:
     """
     1. 使用range(start, end, step)来确定需要调换的初始位置
@@ -18,6 +53,7 @@ def reverseStr(s: str, k: int) -> str:
         res[cur: cur + k] = reverse_substring(res[cur: cur + k])
 
     return ''.join(res)
+
 
 def reverseString(s):
     left = 0
