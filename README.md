@@ -164,4 +164,9 @@ def reverseWords(s_):
     return ' '.join(list_str)
 ```
 
+## 堆栈
 
+### day 1
+
+python 中的 deque 支持下标操作和 popleft 和 pop, append, 因为 queue 是先进先出, 所以使用 `popleft` 是弹出第一个元素, 
+`append` 是添加元素, 结构类似 list, 但 pop 操作为 O(1)
