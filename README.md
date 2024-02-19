@@ -170,3 +170,7 @@ def reverseWords(s_):
 
 python 中的 deque 支持下标操作和 popleft 和 pop, append, 因为 queue 是先进先出, 所以使用 `popleft` 是弹出第一个元素, 
 `append` 是添加元素, 结构类似 list, 但 pop 操作为 O(1)
+
+list 可以作为栈来用, arr[-1], pop, append()
+
+
