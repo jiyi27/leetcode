@@ -47,6 +47,8 @@ while lo <= hi:  # 要使用 <=, 因为left == right是有意义的
 
 > `19. removeNthFromEnd` 链表题 也可以使用双指针, 
 
+> 双指针法也并不一定是 刚开始一个快一个慢 也有可能在相同位置, 例如 1047. 删除字符串中的所有相邻重复项
+
 ### day 3
 
 **题目:** 977. Squares of a Sorted Array
@@ -172,5 +174,3 @@ python 中的 deque 支持下标操作和 popleft 和 pop, append, 因为 queue 
 `append` 是添加元素, 结构类似 list, 但 pop 操作为 O(1)
 
 list 可以作为栈来用, arr[-1], pop, append()
-
-
