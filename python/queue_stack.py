@@ -1,6 +1,31 @@
 from collections import deque
 
 
+def evalRPN(tokens):
+    def resolves(a, b, Operator):
+        if Operator == '+':
+            return a + b
+        elif Operator == '-':
+            return a - b
+        elif Operator == '*':
+            return a * b
+        return int(a / b)
+
+    stack = []
+    for token in tokens:
+        # 新知识, ord 用于返回指定字符的 Unicode 码点, 对于 ASCII 表中的字符, 其 Unicode 码点与 ASCII 码值是一样的
+        # 在 Python 中，不能直接将字符串类型的字符与整数进行比较, 强类型, 与 C 不一样
+        if len(token) == 1 and ord(token) < 48:
+            integer2 = stack.pop()
+            integer1 = stack.pop()
+            operator = token
+            resolved_ans = resolves(integer1, integer2, operator)
+            stack.append(resolved_ans)
+        else:
+            stack.append(int(token))
+    return stack.pop()
+
+
 def removeDuplicatesTwoPointer(self, s):
     res = list(s)
     slow = fast = 0
