@@ -175,3 +175,10 @@ python 中的 deque 支持下标操作和 popleft 和 pop, append, 因为 queue 
 `append` 是添加元素, 结构类似 list, 但 pop 操作为 O(1)
 
 list 可以作为栈来用, arr[-1], pop, append()
+
+
+## 其他
+
+### Bucket Sort
+
+很聪明的方法, 值得深思: [Top K Frequent Elements - Bucket Sort](https://www.youtube.com/watch?v=YPTqKIgVk-k)
