@@ -2,6 +2,22 @@ from collections import deque
 
 
 class Solution:
+    def getDepth(self, node_):
+        if not node_:
+            return 0
+        left_height = self.getDepth(node_.left)
+        right_height = self.getDepth(node_.right)
+        return 1 + max(left_height, right_height)
+
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        return self.getDepth(root)
+
+
+class Solution1:
     def isMirror(self, left, right):
         if not left and not right:
             return True
