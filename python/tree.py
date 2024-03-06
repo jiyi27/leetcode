@@ -1,7 +1,25 @@
 from collections import deque
 
 
-class Solution:
+def maxDepth(root):
+    if not root:
+        return 0
+
+    q = deque()
+    d = 0
+    q.append(root)
+    while q:
+        for i in range(len(q)):
+            node_ = q.popleft()
+            if node_.left:
+                q.append(node_.left)
+            if node_.right:
+                q.append(node_.right)
+        d += 1
+    return d
+
+
+class Solution104:
     def getDepth(self, node_):
         if not node_:
             return 0
