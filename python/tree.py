@@ -1,6 +1,40 @@
 from collections import deque
 
 
+def minDepth(root):
+    if not root:
+        return 0
+    queue = deque()
+    min_d = 0
+    queue.append(root)
+
+    while queue:
+        for _ in range(len(queue)):
+            node_ = queue.popleft()
+            if not node_.left and not node_.right:
+                return min_d + 1
+            if node_.left:
+                queue.append(node_.left)
+            if node_.right:
+                queue.append(node_.right)
+        min_d += 1
+    return min_d
+
+
+class Solution111:
+    def getDepth(self, node):
+        if not node:
+            return 0
+        if not node.left:
+            return 1 + self.getDepth(node.right)
+        if not node.right:
+            return 1 + self.getDepth(node.left)
+        return 1 + max(self.getDepth(node.left), self.getDepth(node.right))
+
+    def minDepth(self, root):
+        return self.getDepth(root)
+
+
 def maxDepth(root):
     if not root:
         return 0
