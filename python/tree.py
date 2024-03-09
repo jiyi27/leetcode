@@ -1,7 +1,50 @@
 from collections import deque
 
 
-def minDepth(root):
+class Solution222(object):
+    def count(self, node):
+        if not node:
+            return 0
+        left = self.count(node.left)
+        right = self.count(node.right)
+        return left + right + 1
+
+    def countNodes(self, root):
+        return self.count(root)
+
+
+def countNodes222(root):
+    if not root:
+        return 0
+
+    queue = deque()
+    queue.append(root)
+    num_nodes = 0
+    while queue:
+        num_nodes += 1
+        node_ = queue.popleft()
+        if node_.left:
+            queue.append(node_.left)
+        if node_.right:
+            queue.append(node_.right)
+    return num_nodes
+
+
+class Solution111:
+    def getDepth(self, node):
+        if not node:
+            return 0
+        if not node.left:
+            return 1 + self.getDepth(node.right)
+        if not node.right:
+            return 1 + self.getDepth(node.left)
+        return 1 + max(self.getDepth(node.left), self.getDepth(node.right))
+
+    def minDepth(self, root):
+        return self.getDepth(root)
+
+
+def minDepth111(root):
     if not root:
         return 0
     queue = deque()
@@ -21,21 +64,23 @@ def minDepth(root):
     return min_d
 
 
-class Solution111:
-    def getDepth(self, node):
-        if not node:
+class Solution104:
+    def getDepth(self, node_):
+        if not node_:
             return 0
-        if not node.left:
-            return 1 + self.getDepth(node.right)
-        if not node.right:
-            return 1 + self.getDepth(node.left)
-        return 1 + max(self.getDepth(node.left), self.getDepth(node.right))
+        left_height = self.getDepth(node_.left)
+        right_height = self.getDepth(node_.right)
+        return 1 + max(left_height, right_height)
 
-    def minDepth(self, root):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
         return self.getDepth(root)
 
 
-def maxDepth(root):
+def maxDepth104(root):
     if not root:
         return 0
 
@@ -51,22 +96,6 @@ def maxDepth(root):
                 q.append(node_.right)
         d += 1
     return d
-
-
-class Solution104:
-    def getDepth(self, node_):
-        if not node_:
-            return 0
-        left_height = self.getDepth(node_.left)
-        right_height = self.getDepth(node_.right)
-        return 1 + max(left_height, right_height)
-
-    def maxDepth(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        return self.getDepth(root)
 
 
 class Solution1:
