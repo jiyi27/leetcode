@@ -176,6 +176,55 @@ python 中的 deque 支持下标操作和 popleft 和 pop, append, 因为 queue 
 
 list 可以作为栈来用, arr[-1], pop, append()
 
+## 二叉树
+
+### day 1
+
+使用回溯时, 每次递归调用都需要单独进行回溯:
+
+```python
+# 二叉树最大深度 递归+回溯
+if (node->left) { // 左
+    depth++;    // 深度+1
+    getdepth(node->left, depth);
+    depth--;    // 回溯，深度-1
+}
+if (node->right) { // 右
+    depth++;    // 深度+1
+    getdepth(node->right, depth);
+    depth--;    // 回溯，深度-1
+}
+#---------------------#
+# 二叉树所有路径 递归+回溯
+if node.left:
+    self.travel_node(node.left, path, res)
+    path.pop()
+if node.right:
+    self.travel_node(node.right, path, res)
+    path.pop()
+```
+
+一般前序遍历需要回溯, 后序遍历通过简单的循环条件就可以完成, 并不需要回溯:
+
+```python
+# 二叉树高度 递归 无 回溯
+class solution:
+    def maxdepth(self, root: treenode) -> int:
+        return self.getdepth(root)
+        
+    def getdepth(self, node):
+        if not node:
+            return 0
+        leftheight = self.getdepth(node.left) #左
+        rightheight = self.getdepth(node.right) #右
+        height = 1 + max(leftheight, rightheight) #中
+        return height
+# 也可以用迭代法, 通过层序遍历, 每次遍历一层, 深度+1
+...
+```
+
+> 前序求的就是深度，使用后序求的是高度, 而根节点的高度就是二叉树的最大深度, 所以 104.maxDepth 既可以使用前序(需要用回溯)也可以使用后序(无需回溯)
+> 了解更多: https://github.com/youngyangyang04/leetcode-master/blob/master/problems/0104.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6.md
 
 ## 其他
 
