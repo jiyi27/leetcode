@@ -1,6 +1,30 @@
 from collections import deque
 
 
+class Solution257:
+    def travel_node(self, node, path, res):
+        path.append(node.val)
+        if not node.left and not node.right:
+            res.append('->'.join([str(val) for val in path]))
+            return
+
+        if node.left:
+            self.travel_node(node.left, path, res)
+            path.pop()
+        if node.right:
+            self.travel_node(node.right, path, res)
+            path.pop()
+
+    def binaryTreePaths(self, root):
+        res = []
+        path = []
+        if not root:
+            return res
+
+        self.travel_node(root, path, res)
+        return res
+
+
 class Solution110(object):
     def getHeight(self, node):
         if not node:
