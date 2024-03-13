@@ -1,6 +1,24 @@
 from collections import deque
 
 
+def sumOfLeftLeaves(root):
+    def ghf(node, sum__):
+        if not node:
+            return
+        if node.left and not node.left.left and not node.left.right:
+            sum__[0] += node.left.val
+            if node.right:
+                ghf(node.right, sum__)
+            return
+        if node.left:
+            ghf(node.left, sum__)
+        if node.right:
+            ghf(node.right, sum__)
+    sum_ = [0]
+    ghf(root, sum_)
+    return sum_[0]
+
+
 class Solution257:
     def travel_node(self, node, path, res):
         path.append(node.val)
