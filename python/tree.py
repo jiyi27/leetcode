@@ -1,19 +1,45 @@
 from collections import deque
 
 
-def sumOfLeftLeaves(root):
-    def ghf(node, sum__):
-        if not node:
+class Solution513:
+    def __init__(self):
+        self.max_depth = -1
+        self.res = None
+
+    def traversal(self, node, depth):
+        if not node.left and not node.right:
+            if depth > self.max_depth:
+                self.max_depth = depth
+                self.res = node.val
             return
+        if node.left:
+            # you can simply replace with: self.traversal(node.right, depth + 1)
+            # 这里只是为了表示回溯
+            depth += 1
+            self.traversal(node.left, depth)
+            depth -= 1
+        if node.right:
+            depth += 1
+            self.traversal(node.right, depth)
+            depth -= 1
+
+    def findBottomLeftValue(self, root):
+        self.traversal(root, 0)
+        return self.res
+
+
+def sumOfLeftLeaves(root):
+    if not root:
+        return 0
+
+    def ghf(node, sum__):
         if node.left and not node.left.left and not node.left.right:
             sum__[0] += node.left.val
-            if node.right:
-                ghf(node.right, sum__)
-            return
         if node.left:
             ghf(node.left, sum__)
         if node.right:
             ghf(node.right, sum__)
+
     sum_ = [0]
     ghf(root, sum_)
     return sum_[0]
