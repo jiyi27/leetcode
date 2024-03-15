@@ -1,6 +1,28 @@
 from collections import deque
 
 
+def hasPathSum112(root, targetSum):
+    def travel(node, sum_):
+        sum_ += node.val
+
+        if not node.left and not node.right:
+            if sum_ == targetSum:
+                return True
+            return False
+
+        if node.left:
+            if travel(node.left, sum_):
+                return True
+        if node.right:
+            if travel(node.right, sum_):
+                return True
+        return False
+
+    if not root:
+        return False
+    return travel(root, 0)
+
+
 class Solution513:
     def __init__(self):
         self.max_depth = -1

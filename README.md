@@ -204,6 +204,19 @@ if node.right:
     path.pop()
 ```
 
+其实可以简写, 并不需要回溯, 比如上面求二叉树的最大深度的代码, 可以简写为:
+
+```python
+if (node->left) { // 左
+    getdepth(node->left, depth + 1);
+}
+if (node->right) { // 右
+    getdepth(node->right, depth + 1);
+}
+```
+
+可以发现, 回溯的本质是让之前的函数调用不影响当前节点的状态, 
+
 一般前序遍历需要回溯, 后序遍历通过简单的循环条件就可以完成, 并不需要回溯:
 
 ```python
