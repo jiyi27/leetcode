@@ -1,6 +1,17 @@
 from collections import deque
 
 
+class Solution106:
+    def buildTree(self, inorder, postorder):
+        if not inorder or not postorder:
+            return None
+        root = TreeNode(postorder[-1])
+        mid = inorder.index(postorder[-1])
+        root.left = self.buildTree(inorder[:mid], postorder[:mid])
+        root.right = self.buildTree(inorder[mid + 1:], postorder[mid+1:len(postorder) - 1])
+        return root
+
+
 class Solution105:
     def buildTree(self, preorder, inorder):
         if not preorder or not inorder:
