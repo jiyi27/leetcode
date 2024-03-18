@@ -180,7 +180,61 @@ list 可以作为栈来用, arr[-1], pop, append()
 
 ### day 1
 
-使用回溯时, 每次递归调用都需要单独进行回溯:
+Recursion 三步走, 确定返回值和参数, 确定终止条件, 确定单层逻辑. 其实**首先要确定的应该是遍历顺序**, 因为遍历顺序决定了递归的顺序, 递归的顺序决定了返回值和参数, 且听我慢慢说来. 
+
+使用前序遍历的时候显而易见, 函数不可以通过返回值来传递信息, 不然后面的单层逻辑没办法处理 (函数直接返回了), 既然无法通过返回值来累积或者传递信息, 我们只能通过一个 state 来传递(记录)每次 recursion 的影响, 所以下面的例子中我们需要全局变量 `self.depth` 和 `self.result`, 
+
+```python
+class Solution104:
+    def __init__(self):
+        self.depth = 0
+        self.result = -1
+
+    def maxDepth(self, root):
+        def getDepth(node):
+            if not node:
+                return
+
+            # 前序遍历 中左右
+            self.depth += 1
+            if self.result < self.depth:
+                self.result = self.depth
+
+            if node.left:
+                getDepth(node.left)
+                self.depth -= 1
+            if node.right:
+                getDepth(node.right)
+                self.depth -= 1
+
+        getDepth(root)
+        return self.depth
+```
+
+而后序遍历正适合通过返回值的方式来传递信息, 因为当前节点最后处理, 通过下面的例子可以看出:
+
+```python
+class Solution104:
+    def getDepth(self, node_):
+        if not node_:
+            return 0
+        
+        # 后序遍历 左右中
+        left_height = self.getDepth(node_.left)
+        right_height = self.getDepth(node_.right)
+        return 1 + max(left_height, right_height)
+
+    def maxDepth(self, root):
+        return self.getDepth(root)
+```
+
+> 做二叉树的题要确定遍历顺序, **前序求深度，后序求高度**, 根节点的高度就是二叉树的最大深度, 所以 104.maxDepth 既可以使用前序也可以使用后序.
+> 了解更多: https://github.com/youngyangyang04/leetcode-master/blob/master/problems/0104.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6.md
+
+
+### day 2
+
+每次递归调用都需要单独进行回溯, 回溯即使当前节点恢复到递归之前的状态以便下一个递归的调用 (左节点递归完还需要右节点):
 
 ```python
 # 二叉树最大深度 递归+回溯
@@ -204,7 +258,7 @@ if node.right:
     path.pop()
 ```
 
-其实可以简写, 并不需要回溯, 比如上面求二叉树的最大深度的代码, 可以简写为:
+若递归的调用不影响当前节点的状态, 则不用回溯, 上面例子的代码可以简写为:
 
 ```python
 if (node->left) { // 左
@@ -215,29 +269,7 @@ if (node->right) { // 右
 }
 ```
 
-可以发现, 回溯的本质是让之前的函数调用不影响当前节点的状态, 
-
-一般前序遍历需要回溯, 后序遍历通过简单的循环条件就可以完成, 并不需要回溯:
-
-```python
-# 二叉树高度 递归 无 回溯
-class solution:
-    def maxdepth(self, root: treenode) -> int:
-        return self.getdepth(root)
-        
-    def getdepth(self, node):
-        if not node:
-            return 0
-        leftheight = self.getdepth(node.left) #左
-        rightheight = self.getdepth(node.right) #右
-        height = 1 + max(leftheight, rightheight) #中
-        return height
-# 也可以用迭代法, 通过层序遍历, 每次遍历一层, 深度+1
-...
-```
-
-> 前序求的就是深度，使用后序求的是高度, 而根节点的高度就是二叉树的最大深度, 所以 104.maxDepth 既可以使用前序(需要用回溯)也可以使用后序(无需回溯)
-> 了解更多: https://github.com/youngyangyang04/leetcode-master/blob/master/problems/0104.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6.md
+可以发现, 回溯的本质是让之前的函数调用不影响当前节点的状态. 
 
 ## 其他
 

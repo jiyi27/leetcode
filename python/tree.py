@@ -76,16 +76,16 @@ def sumOfLeftLeaves(root):
     if not root:
         return 0
 
-    def ghf(node, sum__):
+    def dfs(node, sum__):
         if node.left and not node.left.left and not node.left.right:
             sum__[0] += node.left.val
         if node.left:
-            ghf(node.left, sum__)
+            dfs(node.left, sum__)
         if node.right:
-            ghf(node.right, sum__)
+            dfs(node.right, sum__)
 
     sum_ = [0]
-    ghf(root, sum_)
+    dfs(root, sum_)
     return sum_[0]
 
 
@@ -165,9 +165,9 @@ class Solution111:
         if not node:
             return 0
         if not node.left:
-            return 1 + self.getDepth(node.right)
-        if not node.right:
             return 1 + self.getDepth(node.left)
+        if not node.right:
+            return 1 + self.getDepth(node.right)
         return 1 + max(self.getDepth(node.left), self.getDepth(node.right))
 
     def minDepth(self, root):
@@ -195,6 +195,31 @@ def minDepth111(root):
 
 
 class Solution104:
+    def __init__(self):
+        self.depth = 0
+        self.result = -1
+
+    def maxDepth(self, root):
+        def getDepth(node):
+            if not node:
+                return
+
+            self.depth += 1
+            if self.result < self.depth:
+                self.result = self.depth
+
+            if node.left:
+                getDepth(node.left)
+                self.depth -= 1
+            if node.right:
+                getDepth(node.right)
+                self.depth -= 1
+
+        getDepth(root)
+        return self.depth
+
+
+class SmpleSolution104:
     def getDepth(self, node_):
         if not node_:
             return 0
