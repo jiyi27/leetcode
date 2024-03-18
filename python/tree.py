@@ -161,17 +161,28 @@ def countNodes222(root):
 
 
 class Solution111:
-    def getDepth(self, node):
-        if not node:
-            return 0
-        if not node.left:
-            return 1 + self.getDepth(node.left)
-        if not node.right:
-            return 1 + self.getDepth(node.right)
-        return 1 + max(self.getDepth(node.left), self.getDepth(node.right))
+    def __init__(self):
+        self.result = float('inf')
+        self.depth = 0.0
 
     def minDepth(self, root):
-        return self.getDepth(root)
+        def getDepth(node):
+            self.depth += 1
+            if not node.left and not node.right:
+                self.result = min(self.depth, self.result)
+                return
+
+            if node.left:
+                getDepth(node.left)
+                self.depth -= 1
+            if node.right:
+                getDepth(node.right)
+                self.depth -= 1
+
+        if not root:
+            return 0
+        getDepth(root)
+        return int(self.result)
 
 
 def minDepth111(root):
