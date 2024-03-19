@@ -1,6 +1,29 @@
 from collections import deque
 
 
+def constructMaximumBinaryTree654(nums):
+    def buildTree(arr):
+        if not arr:
+            return None
+
+        if len(arr) == 1:
+            return TreeNode(arr[0])
+
+        max_num = arr[0]
+        max_index = 0
+        for i in range(1, len(arr)):
+            if max_num < arr[i]:
+                max_num = arr[i]
+                max_index = i
+
+        node = TreeNode(arr[max_index])
+        node.left = buildTree(arr[:max_index])
+        node.right = buildTree(arr[max_index + 1:])
+        return node
+
+    return buildTree(nums)
+
+
 class Solution106:
     def buildTree(self, inorder, postorder):
         if not inorder or not postorder:
