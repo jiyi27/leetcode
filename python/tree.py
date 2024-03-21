@@ -1,6 +1,22 @@
 from collections import deque
 
 
+def searchBST700(root, val):
+    def search(node):
+        if not node:
+            return None
+        if node.val == val:
+            return node
+        left = search(node.left)
+        if left:
+            return left
+        right = search(node.right)
+        if right:
+            return right
+
+    return search(root)
+
+
 class Solution617:
     def mergeTrees(self, root1, root2):
         if not root1:
