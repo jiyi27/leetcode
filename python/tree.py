@@ -1,6 +1,21 @@
 from collections import deque
 
 
+class Solution98:
+    def isValidBST(self, root):
+        if not root:
+            return True
+
+        if root.left and root.left.val >= root.val:
+            return False
+        if root.right and root.right.val <= root.val:
+            return False
+
+        left = self.isValidBST(root.left)
+        right = self.isValidBST(root.right)
+        return left and right
+
+
 class Solution700:
     def searchBST(self, root, val):
         if not root or root.val == val:
