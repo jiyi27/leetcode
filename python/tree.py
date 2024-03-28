@@ -1,6 +1,28 @@
 from collections import deque
 
 
+class Solution530:
+    def __init__(self):
+        self.arr = []
+
+    def getMinimumDifference(self, root):
+        def traversal(node):
+            if node is None:
+                return
+            traversal(node.left)
+            self.arr.append(node.val)
+            traversal(node.right)
+
+        traversal(root)
+        if len(self.arr) < 2:
+            return 0
+
+        result = float('inf')
+        for i in range(1, len(self.arr)):
+            result = min(result, self.arr[i] - self.arr[i-1])
+        return result
+
+
 class Solution98:
     def isValidBST(self, root):
         if not root:
