@@ -1,6 +1,28 @@
 from collections import deque
 
 
+class Solution501:
+    def __init__(self):
+        self.dic = {}
+
+    def findMode(self, root):
+        def traversal(node):
+            if node is None:
+                return
+            traversal(node.left)
+            if node.val in self.dic:
+                self.dic[node.val] += 1
+            else:
+                self.dic[node.val] = 0
+            traversal(node.right)
+        traversal(root)
+
+        if not self.dic:
+            return []
+        max_val = max(self.dic.values())
+        return [key for key, value in self.dic.items() if value == max_val]
+
+
 class Solution530:
     def __init__(self):
         self.arr = []
