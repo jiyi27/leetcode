@@ -1,6 +1,54 @@
 from collections import deque
 
 
+class Solution701:
+    def insertIntoBST(self, root, val):
+        if root is None:
+            return TreeNode(val)
+
+        # 搜索二叉树标准操作 不用全部遍历整棵树
+        #  先用一个值接住返回值 然后返回当前节点 这叫前序遍历
+        # 前序遍历也可以不用先返回 但得有东西接住上次递归的值
+        if root.val > val:
+            root.left = self.insertIntoBST(root.left, val)
+        if root.val < val:
+            root.right = self.insertIntoBST(root.right, val)
+
+        return root
+
+
+class Solution505:
+    def lowestCommonAncestor(self, root, p, q):
+        if root == p or root == q:
+            return root
+
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        if p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        if (p.val > root.val > q.val) or (q.val > root.val > p.val):
+            return root
+
+
+class Solution506:
+    def lowestCommonAncestor(self, root, p, q):
+        if root == q or root == p or root is None:
+            return root
+
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+
+        if left is not None and right is not None:
+            return root
+
+        if left is None and right is not None:
+            return right
+        elif left is not None and right is None:
+            return left
+        else:
+            return None
+
+
 class Solution501:
     def __init__(self):
         self.dic = {}
