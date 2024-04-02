@@ -1,14 +1,37 @@
 from collections import deque
 
 
+class Solution450:
+    def deleteNode(self, root, key):
+        if root is None:
+            return root
+        if root.val == key:
+            if root.left is None:
+                return root.right
+            if root.right is None:
+                return root.left
+            if root.right is None and root.left is None:
+                return None
+            cur = root.right
+            while cur.left:
+                cur = cur.left
+            cur.left = root.left
+            return root.right
+
+        if root.val < key:
+            root.right = self.deleteNode(root.right, key)
+        if root.val > key:
+            root.left = self.deleteNode(root.left, key)
+
+        return root
+
+
 class Solution701:
     def insertIntoBST(self, root, val):
         if root is None:
             return TreeNode(val)
 
-        # 搜索二叉树标准操作 不用全部遍历整棵树
-        #  先用一个值接住返回值 然后返回当前节点 这叫前序遍历
-        # 前序遍历也可以不用先返回 但得有东西接住上次递归的值
+        # 搜索二叉树标准操作 不用全部遍历整棵树 **所以可以直接根据值进行分流**
         if root.val > val:
             root.left = self.insertIntoBST(root.left, val)
         if root.val < val:
@@ -22,6 +45,7 @@ class Solution505:
         if root == p or root == q:
             return root
 
+        # 搜索二叉树标准操作 不用全部遍历整棵树 **所以可以直接根据值进行分流**
         if p.val < root.val and q.val < root.val:
             return self.lowestCommonAncestor(root.left, p, q)
         if p.val > root.val and q.val > root.val:
@@ -35,6 +59,7 @@ class Solution506:
         if root == q or root == p or root is None:
             return root
 
+        # 不是二叉搜索树 需要便利整棵树 注意与二叉搜索树题解写法的区别
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
 
