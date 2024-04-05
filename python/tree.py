@@ -1,6 +1,39 @@
 from collections import deque
 
 
+class Solution108:
+    def sortedArrayToBST(self, nums):
+        if len(nums) == 0:
+            return None
+
+        if len(nums) == 1:
+            node = TreeNode(nums[0])
+            return node
+
+        mid = int(len(nums) / 2)
+        node = TreeNode(nums[mid])
+        node.left = self.sortedArrayToBST(nums[:mid])
+        node.right = self.sortedArrayToBST(nums[mid+1:])
+
+        return node
+
+
+class Solution669:
+    def trimBST(self, root, low, high):
+        if root is None:
+            return root
+        if root.val < low:
+            right = self.trimBST(root.right, low, high)
+            return right
+        if root.val > high:
+            left = self.trimBST(root.left, low, high)
+            return left
+
+        root.left = self.trimBST(root.left, low, high)
+        root.right = self.trimBST(root.right, low, high)
+        return root
+
+
 class Solution450:
     def deleteNode(self, root, key):
         if root is None:
