@@ -1,6 +1,23 @@
 from collections import deque
 
 
+class Solution538:
+    def __init__(self):
+        self.pre = 0
+
+    def convertBST(self, root):
+        def traversal(cur):
+            if cur is None:
+                return None
+
+            traversal(cur.right)
+            self.pre += cur.val
+            cur.val = self.pre
+            traversal(cur.left)
+        traversal(root)
+        return root
+
+
 class Solution108:
     def sortedArrayToBST(self, nums):
         if len(nums) == 0:
