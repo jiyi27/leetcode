@@ -1,14 +1,13 @@
 def combine77(n, k):
     res = []
-
-    def traceback(start, comb):
-        if len(comb) == k:
-            res.append(comb[:])
+    path = []
+    def traceback(start):
+        if len(path) == k:
+            res.append(path[:])
             return
         for i in range(start, n + 1):
-            comb.append(i)
-            traceback(i + 1, comb)
-            comb.pop()
-
-    traceback(1, [])
+            path.append(i)
+            traceback(i + 1)
+            path.pop()
+    traceback(1)
     return res
