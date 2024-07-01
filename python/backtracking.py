@@ -1,4 +1,24 @@
-def combinationSum79(candidates, target):
+def combinationSum40(candidates, target):
+    def backtrack(start, remain, path):
+        if remain == 0:
+            result.append(path[:])
+            return
+        for i in range(start, len(candidates)):
+            if i > start and candidates[i] == candidates[i-1]:
+                continue
+            if candidates[i] > remain:
+                break
+            path.append(candidates[i])
+            backtrack(i + 1, remain - candidates[i], path)
+            path.pop()
+
+    candidates.sort()
+    result = []
+    backtrack(0, target, [])
+    return result
+
+
+def combinationSum39(candidates, target):
     """
     :type candidates: List[int]
     :type target: int
