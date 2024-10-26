@@ -12,10 +12,10 @@ def GiveCandy(g: [int], s: [int]) -> int:
 
     return 0
 
-# 若数组含有一个数, 则返回1, 
-# 这题的重要的点在于, [1, 1] 应该返回 1, 而不是0, 因为可以删除一个1,从而得到一个子序列 [1]
 # A sequence with one element and a sequence with two non-equal elements are trivially wiggle sequences. 
 # 这句描述太有迷惑性了 
+# 若数组含有一个数, 则返回1, 
+# 这题的重要的点在于, [1, 1] 应该返回 1, 而不是0, 因为可以删除一个1,从而得到一个子序列 [1]
 class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
         if len(nums) <= 1:
