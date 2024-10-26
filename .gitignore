@@ -1,6 +1,7 @@
 # Python
 venv/
 main.py
+.vscode/
 
 # Go
 go.mod
