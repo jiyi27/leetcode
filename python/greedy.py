@@ -13,6 +13,7 @@ def GiveCandy(g: [int], s: [int]) -> int:
 
     return 0
 
+
 # A sequence with one element and a sequence with
 # two non-equal elements are trivially wiggle sequences.
 # 这句描述太有迷惑性了
@@ -55,8 +56,7 @@ def maxSubArray(nums: List[int]) -> int:
     for num in nums:
         # 注意这俩语句的顺序, 很重要, 反过来, 则最后一次遍历不会运行 max_sum = cur_sum
         cur_sum += num
-        if max_sum < cur_sum:
-            max_sum = cur_sum
+        max_sum = max(max_sum, cur_sum)
         if cur_sum < 0:
             cur_sum = 0
     return max_sum
@@ -72,3 +72,15 @@ def maxSubArray2(nums: List[int]) -> int:
         cur_sum = max(cur_sum + num, num)
         max_sum = max(max_sum, cur_sum)
     return max_sum
+
+
+# 假如数组为 [1, 2, 7, 9], 第一天买到最后一天卖
+# 或 第一天买, 第二天卖, 依次类推. 为什么赚的和第次策略一样多?
+# 想像成一个直方图 📊, 累计增高和一次增高 其实 差距是一样的
+def maxProfit(self, prices: List[int]) -> int:
+    sum = 0
+    for i in range(1, len(prices)):
+        sum = max(sum + prices[i] - prices[i-1], sum)
+    return sum
+
+    
