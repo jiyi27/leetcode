@@ -83,17 +83,32 @@ def maxProfit(self, prices: List[int]) -> int:
     return sum
 
 
-class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        if len(nums) == 1:
+def canJump(nums: List[int]) -> bool:
+    if len(nums) == 1:
+        return True
+    cover = 0
+    i = 0
+    # python不支持动态修改for循环中变量,使用while循环代替
+    while i <= cover:
+        cover = max(i + nums[i], cover)
+        if cover >= len(nums) - 1:
             return True
+        i += 1
+    return False
 
-        cover = 0
-        i = 0
-        # python不支持动态修改for循环中变量,使用while循环代替
-        while i <= cover:
-            cover = max(i + nums[i], cover)
-            if cover >= len(nums) - 1:
-                return True
-            i += 1
-        return False
+
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 0
+        cur_distance = 0
+        next_distance = 0
+        ans = 0
+        for i in range(len(nums)):
+            next_distance = max(nums[i] + i, next_distance)
+            if i == cur_distance:
+                cur_distance = next_distance
+                ans += 1
+                if next_distance >= len(nums - 1):
+                    break
+        return ans
