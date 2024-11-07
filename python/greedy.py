@@ -87,28 +87,53 @@ def canJump(nums: List[int]) -> bool:
     if len(nums) == 1:
         return True
     cover = 0
-    i = 0
-    # python不支持动态修改for循环中变量,使用while循环代替
-    while i <= cover:
-        cover = max(i + nums[i], cover)
+
+    for i in range(len(nums)):
+        if i > cover:
+            break
+        cover = max(nums[i] + i, cover)
         if cover >= len(nums) - 1:
+            return True
+    return False
+
+
+def canJumpSolution2(nums: List[int]) -> bool:
+    if len(nums) == 1:
+        return True
+    cover = 0
+    i = 0
+
+    while i <= cover:
+        cover = max(cover, nums[i] + i)
+        if cover >= len(nums):
             return True
         i += 1
     return False
 
 
+def jump2(nums: List[int]) -> int:
+    if len(nums) == 1:
+        return 0
+    cur_distance = 0
+    next_distance = 0
+    ans = 0
+    for i in range(len(nums)):
+        next_distance = max(nums[i] + i, next_distance)
+        if i == cur_distance:
+            cur_distance = next_distance
+            ans += 1
+            if next_distance >= len(nums - 1):
+                break
+    return ans
+
+
 class Solution:
-    def jump(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return 0
-        cur_distance = 0
-        next_distance = 0
-        ans = 0
+    def largestSumAfterKNegations(self, nums: List[int], k: int) -> int:
+        nums.sort(key=lambda x: abs(x), reverse=True)
         for i in range(len(nums)):
-            next_distance = max(nums[i] + i, next_distance)
-            if i == cur_distance:
-                cur_distance = next_distance
-                ans += 1
-                if next_distance >= len(nums - 1):
-                    break
-        return ans
+            if nums[i] < 0 and k > 0:
+                nums[i] = nums[i] * -1
+                k -= 1
+        if k % 2 == 1:
+            nums[-1] = nums[-1] * -1
+        return sum(nums)
