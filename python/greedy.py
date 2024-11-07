@@ -138,25 +138,11 @@ def largestSumAfterKNegations(nums: List[int], k: int) -> int:
     return sum(nums)
 
 
-# --------------- canCompleteCircuitBruteForce -------------------
-def canCompleteCircuitBruteForce(gas: List[int], cost: List[int]) -> int:
-    for i in range(len(cost)):
-        rest = gas[i] - cost[i]
-        index = (i + 1) % len(cost)  # 下一个加油站的索引
-
-        while rest > 0 and index != i:  # 模拟以i为起点行驶一圈（如果有rest==0，那么答案就不唯一了）
-            rest += gas[index] - cost[index]  # 更新剩余油量
-            index = (index + 1) % len(cost)  # 更新下一个加油站的索引
-
-        if rest >= 0 and index == i:  # 如果以i为起点跑一圈，剩余油量>=0，并且回到起始位置
-            return i  # 返回起始位置i
-
-    return -1  # 所有起始位置都无法环绕一圈，返回-1
-
-
+# ----------------------- canCompleteCircuitBruteForce -----------------------
 # 找出逻辑错误,
 # 看着像遍历了一圈, 其实但实际上它并没有完整地走完一圈，
-# j 每次改变后 j = j % len(gas), 重新进入 for 循环, 仍会按照之前的数字递增, 而不是求余之后的数字加一
+# j 每次改变后 j = j % len(gas), 重新进入 for 循环, j 的值已经改变了, 比如原来是len(gas), 
+# 求余后=0, 则进入循环又从1开始而不是 len(gas) + 1, 这样循环就没办法结束
 def canCompleteCircuitWithError(self, gas: List[int], cost: List[int]) -> int:
     for i in range(len(gas)):
         total_gas = 0
@@ -203,4 +189,4 @@ def canCompleteCircuitSolution2(gas: List[int], cost: List[int]) -> int:
             current_gas = 0
     return start if total_gas >= 0 else -1
 
-# --------------- canCompleteCircuitBruteForce -------------------
+# ----------------------------------- END -----------------------------------
