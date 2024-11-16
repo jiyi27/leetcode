@@ -190,3 +190,23 @@ def canCompleteCircuitSolution2(gas: List[int], cost: List[int]) -> int:
     return start if total_gas >= 0 else -1
 
 # ----------------------------------- END -----------------------------------
+
+
+# 刚开始的思路是 在一次遍历中 怎么根据两侧的大小给它值
+# 其实 分开遍历 左右一遍一次才是正解
+def candy(self, ratings: List[int]) -> int:
+    n = len(ratings)
+    candy_array = [1] * n
+
+    # 从左往右遍历, 比较右侧是否大于左侧
+    for i in range(n - 1):
+        if ratings[i + 1] > ratings[i]:
+            candy_array[i+1] = candy_array[i] + 1
+
+    # 从右往左遍历, 比较左侧是否大于右侧, 错误方法(思考为什么这样是错误的):
+    # for i in range(n - 1, -1, -1):
+    #    if ratings[i] > ratings[i - 1]:
+    for i in range(n - 2, -1, -1):  # 修改遍历范围
+        if ratings[i] > ratings[i + 1]:  # 修改比较方向
+            candy_array[i] = max(candy_array[i], candy_array[i + 1] + 1)
+    return sum(candy_array)
