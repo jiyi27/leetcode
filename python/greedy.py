@@ -141,9 +141,9 @@ def largestSumAfterKNegations(nums: List[int], k: int) -> int:
 # ----------------------- canCompleteCircuitBruteForce -----------------------
 # 找出逻辑错误,
 # 看着像遍历了一圈, 其实但实际上它并没有完整地走完一圈，
-# j 每次改变后 j = j % len(gas), 重新进入 for 循环, j 的值已经改变了, 比如原来是len(gas), 
+# j 每次改变后 j = j % len(gas), 重新进入 for 循环, j 的值已经改变了, 比如原来是len(gas),
 # 求余后=0, 则进入循环又从1开始而不是 len(gas) + 1, 这样循环就没办法结束
-def canCompleteCircuitWithError(self, gas: List[int], cost: List[int]) -> int:
+def canCompleteCircuitWithError(gas: List[int], cost: List[int]) -> int:
     for i in range(len(gas)):
         total_gas = 0
         for j in range(i, i + len(gas)):
@@ -210,3 +210,29 @@ def candy(self, ratings: List[int]) -> int:
         if ratings[i] > ratings[i + 1]:  # 修改比较方向
             candy_array[i] = max(candy_array[i], candy_array[i + 1] + 1)
     return sum(candy_array)
+
+
+def lemonadeChange(bills: List[int]) -> bool:
+    if not bills:
+        return True
+    if bills[0] > 5:
+        return False
+
+    balance = [0] * 21
+
+    for bill in bills:
+        balance[bill] += 1
+        if bill == 10:
+            if balance[5] > 0:
+                balance[5] -= 1
+            else:
+                return False
+        elif bill == 20:
+            if balance[10] > 0 and balance[5] > 0:
+                balance[10] -= 1
+                balance[5] -= 1
+            elif balance[5] >= 3:
+                balance[5] -= 3
+            else:
+                return False
+    return True
