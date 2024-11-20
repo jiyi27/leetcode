@@ -189,7 +189,7 @@ def canCompleteCircuitSolution2(gas: List[int], cost: List[int]) -> int:
             current_gas = 0
     return start if total_gas >= 0 else -1
 
-# ----------------------------------- END -----------------------------------
+# ----------------------------------- END ----------------------------------
 
 
 # 刚开始的思路是 在一次遍历中 怎么根据两侧的大小给它值
