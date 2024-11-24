@@ -1,6 +1,14 @@
 from collections import deque
 
 
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
 class Solution538:
     def __init__(self):
         self.pre = 0
@@ -236,7 +244,8 @@ class Solution106:
         root = TreeNode(postorder[-1])
         mid = inorder.index(postorder[-1])
         root.left = self.buildTree(inorder[:mid], postorder[:mid])
-        root.right = self.buildTree(inorder[mid + 1:], postorder[mid+1:len(postorder) - 1])
+        root.right = self.buildTree(
+            inorder[mid + 1:], postorder[mid+1:len(postorder) - 1])
         return root
 
 
@@ -507,15 +516,14 @@ class Solution1:
         return self.isMirror(root.left, root.right)
 
 
-def invertTree(root):
+def invertTree1(root):
     if root is None:
         return None
 
     queue = deque()
-    queue.append(root)
+    queue.append(root)  # 右端添加
     while queue:
-        # invert
-        node_ = queue.popleft()
+        node_ = queue.popleft()  # 从左端删除元素
         temp_node = node_.left
         node_.left = node_.right
         node_.right = temp_node
@@ -527,7 +535,20 @@ def invertTree(root):
     return root
 
 
-def postorderTraversal(root):
+def invertTree2(root: TreeNode) -> TreeNode:
+    def traverse(node: TreeNode):
+        if node is None:
+            return
+        temp = node.left
+        node.left = node.right
+        node.right = temp
+        traverse(node.left)
+        traverse(node.right)
+    traverse(root)
+    return root
+
+
+def postOrderTraversal(root):
     def traverse(res_, node):
         if node is None:
             return
@@ -540,20 +561,16 @@ def postorderTraversal(root):
     return res
 
 
-def preorderTraversal(root):
+def preOrderTraversal(root):
     def traverse(res_, node):
         if node is None:
             return
         res_.append(node.val)
         traverse(res_, node.left)
-        traverse(res_, node.right)
-
-    res = []
-    traverse(res, root)
-    return res
-
 
 # Definition for a binary tree node.
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
