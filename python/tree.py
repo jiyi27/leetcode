@@ -9,6 +9,100 @@ class TreeNode:
         self.right = right
 
 
+def postOrderTraversal(root):
+    def traverse(res_, node):
+        if node is None:
+            return
+        traverse(res_, node.left)
+        traverse(res_, node.right)
+        res_.append(node.val)
+
+    res = []
+    traverse(res, root)
+    return res
+
+
+def preOrderTraversal(root):
+    def traverse(res_, node):
+        if node is None:
+            return
+        res_.append(node.val)
+        traverse(res_, node.left)
+
+
+def isSymmetric(root):
+    def isMirror(left, right):
+        if not left and not right:
+            return True
+        if not left or not right:
+            return False
+
+        return (left.val == right.val
+                and isMirror(left.right, right.left)
+                and isMirror(left.left, right.right))
+    return isMirror(root.left, root.right)
+
+
+def invertTree1(root):
+    if root is None:
+        return None
+
+    queue = deque()
+    queue.append(root)  # 右端添加
+    while queue:
+        node_ = queue.popleft()  # 从左端删除元素
+        temp_node = node_.left
+        node_.left = node_.right
+        node_.right = temp_node
+
+        if node_.left:
+            queue.append(node_.left)
+        if node_.right:
+            queue.append(node_.right)
+    return root
+
+
+def invertTree2(root: TreeNode) -> TreeNode:
+    def traverse(node: TreeNode):
+        if node is None:
+            return
+        temp = node.left
+        node.left = node.right
+        node.right = temp
+        traverse(node.left)
+        traverse(node.right)
+    traverse(root)
+    return root
+
+
+def countLeaves1(root: TreeNode):
+    if root is None:
+        return 0
+    if root.left is None and root.right is None:
+        return 1
+    return countLeaves1(root.left) + countLeaves1(root.right)
+
+
+def countLeaves2(root: TreeNode):
+    if not root:
+        return 0
+
+    count = 0
+    queue = deque()
+    queue.append(root)
+
+    while queue:
+        node = queue.popleft()
+        if node.left is None and node.right is None:
+            count += 1
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+
+    return count
+
+
 class Solution538:
     def __init__(self):
         self.pre = 0
@@ -467,7 +561,7 @@ class Solution104:
         return self.depth
 
 
-class SmpleSolution104:
+class SimpleSolution104:
     def getDepth(self, node_):
         if not node_:
             return 0
@@ -499,80 +593,3 @@ def maxDepth104(root):
                 q.append(node_.right)
         d += 1
     return d
-
-
-class Solution1:
-    def isMirror(self, left, right):
-        if not left and not right:
-            return True
-        if not left or not right:
-            return False
-
-        return (left.val == right.val
-                and self.isMirror(left.right, right.left)
-                and self.isMirror(left.left, right.right))
-
-    def isSymmetric(self, root):
-        return self.isMirror(root.left, root.right)
-
-
-def invertTree1(root):
-    if root is None:
-        return None
-
-    queue = deque()
-    queue.append(root)  # 右端添加
-    while queue:
-        node_ = queue.popleft()  # 从左端删除元素
-        temp_node = node_.left
-        node_.left = node_.right
-        node_.right = temp_node
-
-        if node_.left:
-            queue.append(node_.left)
-        if node_.right:
-            queue.append(node_.right)
-    return root
-
-
-def invertTree2(root: TreeNode) -> TreeNode:
-    def traverse(node: TreeNode):
-        if node is None:
-            return
-        temp = node.left
-        node.left = node.right
-        node.right = temp
-        traverse(node.left)
-        traverse(node.right)
-    traverse(root)
-    return root
-
-
-def postOrderTraversal(root):
-    def traverse(res_, node):
-        if node is None:
-            return
-        traverse(res_, node.left)
-        traverse(res_, node.right)
-        res_.append(node.val)
-
-    res = []
-    traverse(res, root)
-    return res
-
-
-def preOrderTraversal(root):
-    def traverse(res_, node):
-        if node is None:
-            return
-        res_.append(node.val)
-        traverse(res_, node.left)
-
-# Definition for a binary tree node.
-
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
