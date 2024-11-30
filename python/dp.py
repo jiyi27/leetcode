@@ -72,20 +72,46 @@ def uniquePathsRecursive(self, m: int, n: int) -> int:
 
 
 def uniquePaths(self, m: int, n: int) -> int:
-    # 如果 n = 3，那么 [0] * 3 会得到 [0, 0, 0]
+    # 如果 n = 3，那么 [0] * 3 会得到 [0, 0, 0] - 1. 声明数组
     # for _ in range(m) 表示这个操作要重复 m 次
     dp = [[0] * n for _ in range(m)]
 
-    # 设置第一行和第一列的基本情况
+    # 设置第一行和第一列的基本情况 - 2. 设置初始状态
     for i in range(m):
         dp[i][0] = 1
     for j in range(n):
         dp[0][j] = 1
 
-    # 计算每个单元格的唯一路径数
+    # 计算每个单元格的唯一路径数 - 3. 累加状态
     for i in range(1, m):
         for j in range(1, n):
             dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
 
-    # 返回右下角单元格的唯一路径数
+    # 返回右下角单元格的唯一路径数 - 4. 返回结果
     return dp[m - 1][n - 1]
+
+
+def uniquePathsWithObstacles(self, obstacleGrid):
+    m = len(obstacleGrid)
+    n = len(obstacleGrid[0])
+    if obstacleGrid[0][0] == 1 or obstacleGrid[m-1][n-1] == 1:
+        return 0
+
+    dp = [[0] * n for _ in range(m)]
+    for i in range(m):
+        if obstacleGrid[i][0] == 1:
+            break
+        dp[i][0] = 1
+    for i in range(n):
+        if obstacleGrid[0][i] == 1:
+            break
+        dp[0][i] = 1
+
+    # 注意 从 1 开始, 因为第一行 第一列已经初始化了
+    for i in range(1, m):
+        for j in range(1, n):
+            if obstacleGrid[i][j] == 1:
+                continue
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+
+    return dp[m-1][n-1]

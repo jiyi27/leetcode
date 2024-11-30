@@ -1,15 +1,15 @@
-# Python
-venv/
-main.py
-.vscode/
+# Wildcards (*) don't match files/directories 
+# that begin with a dot unless explicitly specified.
+*env/
+.env/
+.venv/
 
 # Go
 go.mod
 go.sum
 main.go
 
-# MacOS
+# MacOS 
 .DS_Store
-
-# Jetbranins
+.vscode/
 .idea
