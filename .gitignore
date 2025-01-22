@@ -13,3 +13,8 @@ main.go
 .DS_Store
 .vscode/
 .idea
+
+# C++
+cmake-build-debug/
+build/
+main
