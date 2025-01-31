@@ -278,3 +278,14 @@ if (node->right) { // 右
 ### Bucket Sort
 
 很聪明的方法, 值得深思: [Top K Frequent Elements - Bucket Sort](https://www.youtube.com/watch?v=YPTqKIgVk-k)
+
+## 动态规划 01 背包
+
+```c++
+for(int i = 0; i < weight.size(); i++) { // 遍历物品
+    for(int j = bagWeight; j >= weight[i]; j--) { // 遍历背包容量
+        dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+
+    }
+}
+```
