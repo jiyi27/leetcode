@@ -1,3 +1,21 @@
+def mySqrt(target):
+    """
+    循环不变量: 若存在整数平方根, 则在 [lo, hi] 中
+    循环结束, [hi, lo] 证明不存在整数平方根, 返回 hi
+    """
+    lo = 0
+    hi = target
+    while lo <= hi:
+        m = (lo + hi) // 2
+        if m * m < target:
+            lo = m + 1
+        elif m * m > target:
+            hi = m - 1
+        else:
+            return m
+    return hi
+
+
 def generateMatrix(self, n):
     """
     整体思路: 行负责每次都处理当前拐角, 列不负责
@@ -160,45 +178,26 @@ def searchInsert(nums, target):
     return left
 
 
-def mySqrt(target):
-    """
-    循环不变量: 若存在整数平方根, 则在 [lo, hi] 中
-    循环结束, [hi, lo] 证明不存在整数平方根, 返回 hi
-    """
-    lo = 0
-    hi = target
-    while lo <= hi:
-        m = (lo + hi) // 2
-        if m * m < target:
-            lo = m + 1
-        elif m * m > target:
-            hi = m - 1
-        else:
-            return m
-    return hi
-
-
 def searchRange(self, nums, target):
-    def searchIndex(is_first=True):
-        lo = 0
-        hi = len(nums) - 1
-
+    def searchIndex(left_biased=True):
+        left = 0
+        right = len(nums) - 1
         index = -1
-        while lo <= hi:
-            m = (lo + hi) // 2
-            if nums[m] < target:
-                lo = m + 1
-            elif nums[m] > target:
-                hi = m - 1
-            else:
-                index = m
-                if is_first:
-                    hi = m - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                index = mid
+                if left_biased:
+                    right = mid - 1
                 else:
-                    lo = m + 1
+                    left = mid + 1
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
         return index
 
-    first = searchIndex()
-    last = searchIndex(False)
+    left_ = searchIndex()
+    right_ = searchIndex(False)
 
-    return [first, last]
+    return [left_, right_]
