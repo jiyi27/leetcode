@@ -538,27 +538,27 @@ def minDepth111(root):
 
 class Solution104:
     def __init__(self):
-        self.depth = 0
-        self.result = -1
+        self.current_depth = 0
+        self.max_depth = -1
 
     def maxDepth(self, root):
-        def getDepth(node):
+        def preorder(node):
             if not node:
                 return
 
-            self.depth += 1
-            if self.result < self.depth:
-                self.result = self.depth
+            self.current_depth += 1
+            if self.max_depth < self.current_depth:
+                self.max_depth = self.current_depth
 
             if node.left:
-                getDepth(node.left)
-                self.depth -= 1
+                preorder(node.left)
+                self.current_depth -= 1
             if node.right:
-                getDepth(node.right)
-                self.depth -= 1
+                preorder(node.right)
+                self.current_depth -= 1
 
-        getDepth(root)
-        return self.depth
+        preorder(root)
+        return self.current_depth
 
 
 class SimpleSolution104:
