@@ -18,3 +18,7 @@ main.go
 cmake-build-debug/
 build/
 main
+
+# C#
+bin/
+obj/
